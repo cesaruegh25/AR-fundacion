@@ -24,7 +24,13 @@ public class FaceRunnerControlller : MonoBehaviour
             giroCabeza -= 360;
         }
 
-        player.Translate(new Vector3(giroCabeza * Time.deltaTime, 0, 0));
+        float targetX = -giroCabeza * 0.1f;
+        targetX = Mathf.Clamp(targetX, -2f, 2f);
+
+        Vector3 pos = player.position;
+        pos.x = Mathf.Lerp(pos.x, targetX, Time.deltaTime * 5f);
+        player.position = pos;
+        //player.Translate(new Vector3(giroCabeza * Time.deltaTime, 0, 0));
 
     }
 }
