@@ -426,6 +426,7 @@ GameObject:
   - component: {fileID: 1670610884}
   - component: {fileID: 1670610885}
   - component: {fileID: 1670610886}
+  - component: {fileID: 1670610887}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -476,6 +477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   faceManager: {fileID: 47126034}
   controller: {fileID: 1670610884}
+  jumpController: {fileID: 1670610887}
 --- !u!114 &1670610886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -494,6 +496,24 @@ MonoBehaviour:
   placeLegth: 4
   speed: 2
   obstacleChance: 0.8
+--- !u!114 &1670610887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670610881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ab2c68888b8ad242b744f03f0a46775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FaceJumpController
+  face: {fileID: 0}
+  playerRb: {fileID: 1982592943}
+  player: {fileID: 1982592944}
+  jumpForce: 4
+  pitchThreshold: -15
+  cooldown: 0.8
 --- !u!1 &1803219329
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,6 +1000,8 @@ GameObject:
   - component: {fileID: 1982592941}
   - component: {fileID: 1982592940}
   - component: {fileID: 1982592939}
+  - component: {fileID: 1982592943}
+  - component: {fileID: 1982592944}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -1080,6 +1102,47 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1982592943
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982592938}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1982592944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982592938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c6a8fbc03a5f84428316148d4c71820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerJump
+  isGrounded: 0
+  vidas: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
