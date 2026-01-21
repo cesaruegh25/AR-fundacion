@@ -10,7 +10,7 @@ public class FaceRunnerControlller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (face == null && player == null)
+        if (face == null || player == null)
         {
             return;
         }
