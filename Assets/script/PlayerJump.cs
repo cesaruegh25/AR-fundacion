@@ -9,8 +9,8 @@ public class PlayerJump : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("ground"))
         {
+            //UIManager.instance.MostarMensaje("Player is grounded.");
             isGrounded = true;
-            Debug.LogError("Player is grounded.");
         }
     }
     private void OnCollisionExit(Collision collision)
@@ -18,11 +18,11 @@ public class PlayerJump : MonoBehaviour
         if (collision.gameObject.CompareTag("enemy"))
         {
             vidas--;
-            Debug.LogError("Player hit an enemy. Lives left: " + vidas);
+            UIManager.instance.MostarMensaje_1("Vidas restantes: " + vidas);
 
             if (vidas <= 0)
             {
-                Debug.LogError("derrota");
+                UIManager.instance.MostarMensaje_1("Game Over");
             }
         }
     }
