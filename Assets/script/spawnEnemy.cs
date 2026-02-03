@@ -53,12 +53,12 @@ public class spawnEnemy : MonoBehaviour
 
     void SpawnObstacle(Transform parent)
     {
-        float[] lanes = { -1.5f, 0f, 1.5f };
+        float[] lanes = { -1.5f, -0.75f, 0f, 0.75f, 1.5f };
         float x = lanes[Random.Range(0, lanes.Length)];
 
         GameObject obstacle = Instantiate(obstaclePrefab);
         obstacle.transform.SetParent(parent);
-        obstacle.transform.localPosition = new Vector3(x, 0.5f, 0);
+        obstacle.transform.localPosition = new Vector3(x, 1.0f, 0);
     }
 
     void RemovePiece()
