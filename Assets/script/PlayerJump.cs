@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerJump : MonoBehaviour
 {
     public bool isGrounded;
+    public int point;
     public int vidas = 3;
 
     void Start()
@@ -15,6 +16,11 @@ public class PlayerJump : MonoBehaviour
         {
             //UIManager.instance.MostarMensaje("Player is grounded.");
             isGrounded = true;
+        }
+        if (collision.gameObject.CompareTag("coin"))
+        {
+            point++;
+            UIManager.instance.MostarMensaje_1("puntos: " + point);
         }
     }
     private void OnCollisionExit(Collision collision)
