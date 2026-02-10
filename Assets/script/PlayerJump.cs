@@ -5,6 +5,10 @@ public class PlayerJump : MonoBehaviour
     public bool isGrounded;
     public int vidas = 3;
 
+    void Start()
+    {
+        UIManager.instance.MostarMensaje_1("Vidas restantes: " + vidas);
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("ground"))
@@ -22,7 +26,8 @@ public class PlayerJump : MonoBehaviour
 
             if (vidas <= 0)
             {
-                UIManager.instance.MostarMensaje_1("Game Over");
+                
+                UIManager.instance.MostarMensaje_2("Game Over");
             }
         }
     }

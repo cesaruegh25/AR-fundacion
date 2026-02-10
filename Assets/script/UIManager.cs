@@ -17,8 +17,8 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        text_1.text = "Hola";
-        text_2.text = "Mundo";
+        //text_1.text = "Hola";
+        //text_2.text = "Mundo";
     }
     
     public void MostarMensaje_1(string msj)
