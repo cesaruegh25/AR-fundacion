@@ -10,7 +10,7 @@ public class FaceJumpController : MonoBehaviour
     public PlayerJump player;
 
     public float jumpFloat = 30.0f;
-    public float jumpForce = 4f;
+    public float jumpForce = 8f;
     public float pitchThreshold = -15f;
     public float cooldown = 0.8f;
 
@@ -37,7 +37,7 @@ public class FaceJumpController : MonoBehaviour
     }
     void Jump()
     {
-        UIManager.instance.MostarMensaje_2("Jumping!");
+        //UIManager.instance.MostarMensaje_2("Jumping!");
         playerRb.linearVelocity = new Vector3(playerRb.linearVelocity.x, 0, playerRb.linearVelocity.z);
         playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         player.isGrounded = false;

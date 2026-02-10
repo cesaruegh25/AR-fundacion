@@ -58,7 +58,7 @@ public class spawnEnemy : MonoBehaviour
 
         GameObject obstacle = Instantiate(obstaclePrefab);
         obstacle.transform.SetParent(parent);
-        obstacle.transform.localPosition = new Vector3(x, 1.0f, 0);
+        obstacle.transform.localPosition = new Vector3(x, 0.75f, 0);
     }
 
     void RemovePiece()
