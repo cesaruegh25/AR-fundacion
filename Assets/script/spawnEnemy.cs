@@ -7,22 +7,20 @@ public class spawnEnemy : MonoBehaviour
     public GameObject obstaclePrefab;
     public GameObject coinPrefabs;
 
-    public int initialPlace = 2;
-    public float placeLegth = 10.0f;
+    public float placeLegth = 4.0f;
     public float speed = 2.0f;
     public float obstacleChance = 0.5f;
-    public float objetoChance = 5.0f;
+    public float objetoChance = 1.0f;
 
     private Queue<GameObject> trackQeue = new Queue<GameObject>();
     private float spawnZ = 0.0f;
+    private GameObject piece;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        for (int i = 0; i < initialPlace; i++)
-        {
-            SpawnPiece();
-        }
+        piece = Instantiate(trackPrefab);
+        SpawnPiece();
     }
 
     // Update is called once per frame
@@ -34,17 +32,10 @@ public class spawnEnemy : MonoBehaviour
         }
         if (trackQeue.Peek().transform.position.z < -placeLegth)
         {
+            UIManager.instance.MostarMensaje("terreno :" + trackQeue.Peek().transform.position.z , 2);
             RemovePiece();
             SpawnPiece();
         }
-    }
-
-    void SpawnPiece()
-    {
-        GameObject piece = Instantiate(trackPrefab);
-        piece.transform.SetParent(transform);
-        piece.transform.position = new Vector3(0, 0, spawnZ);
-        
         if (Random.value < obstacleChance)
         {
             SpawnObject(piece.transform, obstaclePrefab);
@@ -53,6 +44,14 @@ public class spawnEnemy : MonoBehaviour
         {
             SpawnObject(piece.transform, coinPrefabs);
         }
+    }
+
+    void SpawnPiece()
+    {
+        piece.transform.SetParent(transform);
+        piece.transform.position = new Vector3(0, 0, spawnZ);
+        UIManager.instance.MostarMensaje("spawnZ :" + spawnZ, 4);
+
         trackQeue.Enqueue(piece);
         spawnZ += placeLegth;
     }
