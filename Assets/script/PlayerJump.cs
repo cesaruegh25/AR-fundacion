@@ -8,7 +8,7 @@ public class PlayerJump : MonoBehaviour
 
     void Start()
     {
-        UIManager.instance.MostarMensaje_1("Vidas restantes: " + vidas);
+        UIManager.instance.MostarMensaje("Vidas restantes: " + vidas, 1);
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -20,7 +20,7 @@ public class PlayerJump : MonoBehaviour
         if (collision.gameObject.CompareTag("coin"))
         {
             point++;
-            UIManager.instance.MostarMensaje_1("puntos: " + point);
+            UIManager.instance.MostarMensaje("puntos: " + point, 2);
         }
     }
     private void OnCollisionExit(Collision collision)
@@ -28,12 +28,12 @@ public class PlayerJump : MonoBehaviour
         if (collision.gameObject.CompareTag("enemy"))
         {
             vidas--;
-            UIManager.instance.MostarMensaje_1("Vidas restantes: " + vidas);
+            UIManager.instance.MostarMensaje("Vidas restantes: " + vidas, 1);
 
             if (vidas <= 0)
             {
                 
-                UIManager.instance.MostarMensaje_2("Game Over");
+                UIManager.instance.MostarMensaje("Game Over", 1);
             }
         }
     }
