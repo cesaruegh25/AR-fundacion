@@ -7,11 +7,11 @@ public class spawnEnemy : MonoBehaviour
     public GameObject obstaclePrefab;
     public GameObject coinPrefabs;
 
-    public int initialPlace = 5;
-    public float placeLegth = 4.0f;
+    public int initialPlace = 2;
+    public float placeLegth = 10.0f;
     public float speed = 2.0f;
     public float obstacleChance = 0.5f;
-    public float objetoChance = 1.0f;
+    public float objetoChance = 5.0f;
 
     private Queue<GameObject> trackQeue = new Queue<GameObject>();
     private float spawnZ = 0.0f;
