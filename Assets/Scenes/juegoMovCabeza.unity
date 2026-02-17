@@ -920,7 +920,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1518493657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1088,7 +1088,6 @@ MonoBehaviour:
   trackPrefab: {fileID: 1435444384853303604, guid: 445fc33f26fedc5429a5f1ed8d2f2071, type: 3}
   obstaclePrefab: {fileID: 2730443848922792664, guid: 730b58b24c4e6df4ebb94d27166fcdd4, type: 3}
   coinPrefabs: {fileID: 5109127501757661597, guid: 1363728eb6234e447a805e2c849595e8, type: 3}
-  initialPlace: 5
   placeLegth: 4
   speed: 2
   obstacleChance: 0.8

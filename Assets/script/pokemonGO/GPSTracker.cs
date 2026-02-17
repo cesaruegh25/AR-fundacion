@@ -37,15 +37,14 @@ public class GPSTracker : MonoBehaviour
             UIManager.instance.MostarMensaje("coordenadas actuales: LAT: " + currentLatitude + " LON: " + currentLongitude, 1);
 
             double distance = CalcularDistancia(currentLatitude, currentLongitude, targetLat, targetLon);
-            if (distance < distanceMin && spawned == false)
+            if (distance < distanceMin)
             {
-                
-                UIManager.instance.MostarMensaje("¡Has encontrado el Pokémon!", 4);
+                UIManager.instance.MostarMensaje("¡Has encontrado el Pokémon! :" + distance + " A" , 2);
                 spawnEnemyRaycast();
             }
             else
             {
-                UIManager.instance.MostarMensaje("Distancia al Pokémon: " + distance.ToString("F2") + " metros", 2);
+                UIManager.instance.MostarMensaje("Distancia al Pokémon: " + distance.ToString("F2") + " metros", 4);
             }
         }
 
@@ -79,7 +78,7 @@ public class GPSTracker : MonoBehaviour
     void spawnEnemyRaycast()
     {
         List<ARRaycastHit> hits = new List<ARRaycastHit>();
-        UIManager.instance.MostarMensaje("raycast antes del if " + hits, 3);
+        UIManager.instance.MostarMensaje("raycast antes del if " + hits[0], 4);
         if (raycastManager.Raycast(
             new Vector2(Screen.width/2, Screen.height/2),
             hits,
