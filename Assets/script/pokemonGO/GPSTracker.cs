@@ -3,6 +3,7 @@ using System;
 using NUnit.Framework;
 using UnityEngine.EventSystems;
 using Unity.Mathematics;
+using UnityEngine.XR.ARSubsystems;
 using UnityEngine.XR.ARFoundation;
 using System.Collections.Generic;
 
@@ -18,7 +19,7 @@ public class GPSTracker : MonoBehaviour
     GameObject SpawnedObject;
     [SerializeField] public ARRaycastManager raycastManager;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         if (!Input.location.isEnabledByUser) return;
@@ -30,6 +31,11 @@ public class GPSTracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (raycastManager == null)
+        {
+            UIManager.instance.MostarMensaje("ARRaycastManager no asignado", 3);
+            return;
+        }
         if (Input.location.status == LocationServiceStatus.Running)
         {
             double currentLatitude = Input.location.lastData.latitude;
@@ -39,7 +45,8 @@ public class GPSTracker : MonoBehaviour
             double distance = CalcularDistancia(currentLatitude, currentLongitude, targetLat, targetLon);
             if (distance < distanceMin)
             {
-                UIManager.instance.MostarMensaje("¡Has encontrado el Pokémon! :" + distance + " A" , 2);
+                UIManager.instance.MostarMensaje("¡Has encontrado el Pokémon! :" + distance + " A", 2);
+
                 spawnEnemyRaycast();
             }
             else
@@ -78,15 +85,25 @@ public class GPSTracker : MonoBehaviour
     void spawnEnemyRaycast()
     {
         List<ARRaycastHit> hits = new List<ARRaycastHit>();
-        UIManager.instance.MostarMensaje("raycast antes del if " + hits[0], 4);
+        UIManager.instance.MostarMensaje("raycast antes del if ", 3);
+        Vector2 centro = new Vector2(Screen.width / 2, Screen.height / 2);
         if (raycastManager.Raycast(
-            new Vector2(Screen.width/2, Screen.height/2),
+            centro,
             hits,
-            UnityEngine.XR.ARSubsystems.TrackableType.Planes))
+            TrackableType.Planes))
         {
             UIManager.instance.MostarMensaje("¡El Pokémon ha aparecido!", 3);
-            Instantiate(enemyPrefab, hits[0].pose.position, Quaternion.identity);
+            if (!spawned)
+            {
+                Instantiate(enemyPrefab, hits[0].pose.position, Quaternion.identity); //Quaternion.identity
+            }
+            
             spawned = true;
+            UIManager.instance.MostarMensaje("spawn hecho" + spawned, 4);
+        }
+        else
+        {
+            UIManager.instance.MostarMensaje("No se ha detectado una superficie para colocar el Pokémon.", 3);
         }
             
     }
