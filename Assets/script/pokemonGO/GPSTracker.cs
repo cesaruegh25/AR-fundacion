@@ -20,15 +20,6 @@ public class GPSTracker : MonoBehaviour
     [SerializeField] public ARRaycastManager raycastManager;
 
 
-    void Start()
-    {
-        if (!Input.location.isEnabledByUser) return;
-        UIManager.instance.MostarMensaje("Ejecuta Start", 1);
-        Input.location.Start();
-        Input.compass.enabled = true;
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (raycastManager == null)
@@ -38,11 +29,7 @@ public class GPSTracker : MonoBehaviour
         }
         if (Input.location.status == LocationServiceStatus.Running)
         {
-            double currentLatitude = Input.location.lastData.latitude;
-            double currentLongitude = Input.location.lastData.longitude;
-            UIManager.instance.MostarMensaje("coordenadas actuales: LAT: " + currentLatitude + " LON: " + currentLongitude, 1);
-
-            double distance = CalcularDistancia(currentLatitude, currentLongitude, targetLat, targetLon);
+            double distance = CalcularDistancia(GPSManager.Instance.Latitude, GPSManager.Instance.Longitude, targetLat, targetLon);
             if (distance < distanceMin)
             {
                 UIManager.instance.MostarMensaje("¡Has encontrado el Pokémon! :" + distance + " A", 2);
