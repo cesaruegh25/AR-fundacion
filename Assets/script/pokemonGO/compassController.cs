@@ -4,6 +4,7 @@ public class CompassController : MonoBehaviour
 {
     public double monsterLat;
     public double monsterLon;
+    public object arrowUI;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -14,14 +15,14 @@ public class CompassController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*float heading = Input.compass.trueHeading
+        float heading = Input.compass.trueHeading;
         float bearing = CalcularBearing(
-            GPSManager.Instance.latitude,
-            GPSManager.Instance.longitude,
+            GPSManager.Instance.Latitude,
+            GPSManager.Instance.Longitude,
             monsterLat,
             monsterLon);
         float angle = heading - bearing;
-        arrowUI.localRotation = Quaternion.Euler(0, 0, angle);*/
+        //arrowUI.//localRotation = Quaternion.Euler(0, 0, angle);
     }
 
     float CalcularBearing(double lat1, double lon1, double lat2, double lon2)
