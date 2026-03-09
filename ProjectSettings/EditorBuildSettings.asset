@@ -6,11 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/juegoMovCabeza.unity
+    path: Assets/01_Scenes/juegoMovCabeza.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
-    path: Assets/Scenes/juego PokemonGO.unity
+  - enabled: 0
+    path: Assets/01_Scenes/pokemonGO/juego PokemonGO.unity
     guid: aa7e60bf5d4900b419bcd20c0042cb89
+  - enabled: 1
+    path: Assets/01_Scenes/pokemonGO/Menu/Menu.unity
+    guid: e4035227c136d7e4fab73405aa969b33
+  - enabled: 1
+    path: Assets/01_Scenes/pokemonGO/ARGame/Game.unity
+    guid: 5d57a61a5267c184592701b23184112b
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: ed2e804296325ec48a84d8dc47604086, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
