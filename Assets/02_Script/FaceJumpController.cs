@@ -9,38 +9,66 @@ public class FaceJumpController : MonoBehaviour
     public Rigidbody playerRb;
     public PlayerJump player;
 
-    public float jumpFloat = 30.0f;
+    [Header("Configuración del Salto")]
     public float jumpForce = 8f;
-    public float pitchThreshold = -15f;
     public float cooldown = 0.8f;
 
-    private bool isGrounded = true;
-    private float lastJumpTime;
-    
+    [Header("Detección de Gesto Rápido")]
+    [Tooltip("Velocidad en grados/segundo necesaria para saltar. Valores más altos requieren un movimiento más brusco.")]
+    public float pitchSpeedThreshold = 180f;
 
-    // Update is called once per frame
+    private float lastJumpTime;
+    private float previousPitch = 0f;
+    private bool hasPreviousPitch = false;
+
     void Update()
     {
-        if (face == null || playerRb == null) return;
-
-        Vector3 rotation = face.transform.localEulerAngles;
-        float pitch = rotation.x;
-        //UIManager.instance.MostarMensaje_1("Pitch_1: " + pitch);
-        if (pitch > jumpFloat) pitch -= 360;
-        //UIManager.instance.MostarMensaje_2("Pitch_2: " + pitch);
-
-        if (pitch < pitchThreshold && player.isGrounded && Time.time - lastJumpTime > cooldown)
+        if (face == null || playerRb == null)
         {
-            //UIManager.instance.MostarMensaje_1("Jump detected with pitch: " + pitch);
+            hasPreviousPitch = false; // Reiniciamos si se pierde el rastreo
+            return;
+        }
+
+        // 1. Conseguimos el ángulo de rotación X actual y lo normalizamos a [-180, 180]
+        float currentPitch = face.transform.localEulerAngles.x;
+        if (currentPitch > 180) currentPitch -= 360;
+
+        // 2. Si es el primer frame con la cara detectada, solo guardamos el valor actual
+        if (!hasPreviousPitch)
+        {
+            previousPitch = currentPitch;
+            hasPreviousPitch = true;
+            return;
+        }
+
+        // 3. CALCULAMOS LA VELOCIDAD: (Ángulo Actual - Ángulo Anterior) / Tiempo del Frame
+        // Al mover la cabeza rápido hacia ARRIBA, este valor se vuelve NEGATIVO.
+        float pitchVelocity = (currentPitch - previousPitch) / Time.deltaTime;
+
+        // Guardamos el ángulo actual para que sea el "anterior" en el siguiente frame
+        previousPitch = currentPitch;
+
+        // 4. Mostramos la velocidad en pantalla para poder ajustarla con precisión
+        if (txtPrueba != null)
+        {
+            txtPrueba.text = $"Velocidad Pitch: {pitchVelocity.ToString("F0")}°/s\nSuelo: {player.isGrounded}";
+        }
+
+        // 5. CONDICIÓN DE SALTO:
+        // Si la velocidad es menor que el umbral negativo (un tirón rápido hacia arriba)
+        if (pitchVelocity < -pitchSpeedThreshold && player.isGrounded && Time.time - lastJumpTime > cooldown)
+        {
             Jump();
         }
     }
+
     void Jump()
     {
-        //UIManager.instance.MostarMensaje_2("Jumping!");
         playerRb.linearVelocity = new Vector3(playerRb.linearVelocity.x, 0, playerRb.linearVelocity.z);
         playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
         player.isGrounded = false;
         lastJumpTime = Time.time;
+        player.animator.SetTrigger("Jump");
     }
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerJump : MonoBehaviour
 {
+    public Animator animator;
     public bool isGrounded;
     public int point;
     public int vidas = 3;
@@ -14,26 +15,29 @@ public class PlayerJump : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("ground"))
         {
-            //UIManager.instance.MostarMensaje("Player is grounded.");
+            UIManager.instance.MostarMensaje("Player is grounded.", 3);
             isGrounded = true;
         }
-        if (collision.gameObject.CompareTag("coin"))
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("coin"))
         {
             point++;
             UIManager.instance.MostarMensaje("puntos: " + point, 2);
+            Destroy(other.gameObject); // Destruye la moneda para que desaparezca al cogerla
         }
-    }
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("enemy"))
+
+        if (other.CompareTag("enemy"))
         {
             vidas--;
             UIManager.instance.MostarMensaje("Vidas restantes: " + vidas, 1);
-
+            
             if (vidas <= 0)
             {
-                
                 UIManager.instance.MostarMensaje("Game Over", 1);
+                Time.timeScale = 0;  // Detiene el juego
             }
         }
     }

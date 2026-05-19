@@ -7,68 +7,78 @@ public class spawnEnemy : MonoBehaviour
     public GameObject obstaclePrefab;
     public GameObject coinPrefabs;
 
-    public float placeLegth = 4.0f;
+    public float placeLegth;
     public float speed = 2.0f;
     public float obstacleChance = 0.5f;
     public float objetoChance = 1.0f;
 
-    private Queue<GameObject> trackQeue = new Queue<GameObject>();
+    private Queue<GameObject> trackQueue = new Queue<GameObject>();
     private float spawnZ = 0.0f;
-    private GameObject piece;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        piece = Instantiate(trackPrefab);
-        SpawnPiece();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        foreach (GameObject piece in trackQeue)
+        for (int i = 0; i < 4; i++)
         {
-            piece.transform.Translate(Vector3.back * speed * Time.deltaTime);
-        }
-        if (trackQeue.Peek().transform.position.z < -placeLegth)
-        {
-            UIManager.instance.MostarMensaje("terreno :" + trackQeue.Peek().transform.position.z , 2);
-            RemovePiece();
             SpawnPiece();
         }
-        if (Random.value < obstacleChance)
+    }
+
+    void Update()
+    {
+        foreach (GameObject track in trackQueue)
         {
-            SpawnObject(piece.transform, obstaclePrefab);
+            if (track != null)
+            {
+                track.transform.Translate(Vector3.back * speed * Time.deltaTime);
+            }
         }
-        if (Random.value < objetoChance)
+
+        spawnZ -= speed * Time.deltaTime;
+
+        if (trackQueue.Count > 0 && trackQueue.Peek().transform.position.z < -placeLegth)
         {
-            SpawnObject(piece.transform, coinPrefabs);
+            UIManager.instance.MostarMensaje("terreno eliminado en :" + trackQueue.Peek().transform.position.z, 2);
+
+            RemovePiece();
+            SpawnPiece();
         }
     }
 
     void SpawnPiece()
     {
-        piece.transform.SetParent(transform);
-        piece.transform.position = new Vector3(0, 0, spawnZ);
-        UIManager.instance.MostarMensaje("spawnZ :" + spawnZ, 4);
+        GameObject newPiece = Instantiate(trackPrefab);
+        newPiece.transform.SetParent(transform);
+        newPiece.transform.position = new Vector3(0, 0, spawnZ);
 
-        trackQeue.Enqueue(piece);
+        if (Random.value < obstacleChance)
+        {
+            SpawnObject(newPiece.transform, obstaclePrefab);
+        }
+        if (Random.value < objetoChance)
+        {
+            SpawnObject(newPiece.transform, coinPrefabs);
+        }
+
+        trackQueue.Enqueue(newPiece);
         spawnZ += placeLegth;
     }
 
-    void SpawnObject(Transform parent, GameObject spawn)
+    void SpawnObject(Transform parent, GameObject prefabToSpawn)
     {
+        if (prefabToSpawn == null) return;
+
         float[] lanes = { -1.5f, -0.75f, 0f, 0.75f, 1.5f };
         float x = lanes[Random.Range(0, lanes.Length)];
 
-        GameObject objeto = Instantiate(spawn);
+        GameObject objeto = Instantiate(prefabToSpawn);
         objeto.transform.SetParent(parent);
+
         objeto.transform.localPosition = new Vector3(x, 0.75f, 0);
     }
 
     void RemovePiece()
     {
-        GameObject oldPiece = trackQeue.Dequeue();
+        GameObject oldPiece = trackQueue.Dequeue();
         Destroy(oldPiece);
     }
 }
