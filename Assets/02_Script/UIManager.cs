@@ -10,10 +10,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] public TMP_Text text_ABD;
 
     [Header("Configuración del Cronómetro")]
-    // 1. Añadimos el nuevo espacio para el texto del tiempo en el Inspector
-    [SerializeField] public TMP_Text text_Timer;
+    public TMP_Text text_Timer;
 
-    // 2. Variable interna para ir sumando los segundos transcurridos
     public float tiempoTranscurrido = 0f;
 
     private void Awake()

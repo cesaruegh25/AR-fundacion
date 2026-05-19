@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEditor.U2D;
-
 public class spawnEnemy : MonoBehaviour
 {
     public GameObject trackPrefab;
