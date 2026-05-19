@@ -9,6 +9,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] public TMP_Text text_ABI;
     [SerializeField] public TMP_Text text_ABD;
 
+    [Header("Configuración del Cronómetro")]
+    // 1. Añadimos el nuevo espacio para el texto del tiempo en el Inspector
+    [SerializeField] public TMP_Text text_Timer;
+
+    // 2. Variable interna para ir sumando los segundos transcurridos
+    public float tiempoTranscurrido = 0f;
+
     private void Awake()
     {
         if (instance == null)
@@ -19,10 +26,28 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        //text_1.text = "Hola";
-        //text_2.text = "Mundo";
     }
-    
+    // 3. Usamos Update para actualizar el tiempo en cada fotograma
+    private void Update()
+    {
+        // Time.deltaTime es la fracción de segundo que pasó desde el frame anterior.
+        // Al sumarlo constantemente, obtenemos un contador de segundos perfecto.
+        tiempoTranscurrido += Time.deltaTime;
+
+        // Convertimos el tiempo total a minutos y segundos matemáticamente
+        int minutos = Mathf.FloorToInt(tiempoTranscurrido / 60f);
+        int segundos = Mathf.FloorToInt(tiempoTranscurrido % 60f);
+
+        // 4. Formateamos el texto para que siempre muestre dos dígitos (ej: 02:05 en vez de 2:5)
+        if (text_Timer != null)
+        {
+            text_Timer.text = string.Format("{0:00}:{1:00}", minutos, segundos);
+
+            // Si quieres que aparezca una etiqueta antes del tiempo, puedes usar esta línea en su lugar:
+            // text_Timer.text = "Tiempo: " + string.Format("{0:00}:{1:00}", minutos, segundos);
+        }
+    }
+
     public void MostarMensaje(string msj, int posicion)
     {
         if (posicion == 1)

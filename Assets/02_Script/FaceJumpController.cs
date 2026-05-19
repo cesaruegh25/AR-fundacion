@@ -15,7 +15,7 @@ public class FaceJumpController : MonoBehaviour
 
     [Header("Detección de Gesto Rápido")]
     [Tooltip("Velocidad en grados/segundo necesaria para saltar. Valores más altos requieren un movimiento más brusco.")]
-    public float pitchSpeedThreshold = 180f;
+    public float pitchSpeedThreshold = 100f;
 
     private float lastJumpTime;
     private float previousPitch = 0f;
@@ -64,11 +64,11 @@ public class FaceJumpController : MonoBehaviour
 
     void Jump()
     {
+        player.animator.SetTrigger("Jump");
         playerRb.linearVelocity = new Vector3(playerRb.linearVelocity.x, 0, playerRb.linearVelocity.z);
         playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
         player.isGrounded = false;
         lastJumpTime = Time.time;
-        player.animator.SetTrigger("Jump");
     }
 }
