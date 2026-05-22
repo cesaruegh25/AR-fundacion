@@ -839,6 +839,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MenuManager
   gameSceneName: Game
   gpsTimeout: 10
+  debug: {fileID: 311737013}
 --- !u!4 &1576012084
 Transform:
   m_ObjectHideFlags: 0

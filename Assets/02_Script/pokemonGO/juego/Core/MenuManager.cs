@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
     public string gameSceneName = "Game";
     public float gpsTimeout = 10f;
+    public TextMeshProUGUI debug;
 
     public void StartGame()
     {
@@ -16,7 +18,7 @@ public class MenuManager : MonoBehaviour
         // comprobar si el usuario tiene activado el GPS
         if (!Input.location.isEnabledByUser)
         {
-            Debug.Log("GPS desactivado por el usuario");
+            debug.text = "GPS desactivado por el usuario";
             yield break;
         }
 
@@ -34,7 +36,7 @@ public class MenuManager : MonoBehaviour
         // si falla
         if (Input.location.status == LocationServiceStatus.Failed)
         {
-            Debug.Log("No se pudo obtener la ubicación");
+            debug.text = "No se pudo obtener la ubicación";
             yield break;
         }
 
@@ -44,7 +46,7 @@ public class MenuManager : MonoBehaviour
             float latitude = Input.location.lastData.latitude;
             float longitude = Input.location.lastData.longitude;
 
-            Debug.Log("Ubicación obtenida: " + latitude + " , " + longitude);
+            debug.text = "Ubicación obtenida: " + latitude + " , " + longitude;
         }
 
         // cargar escena del juego

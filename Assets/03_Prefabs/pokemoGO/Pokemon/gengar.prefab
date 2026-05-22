@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: gengar
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1cf35c6ab9e7a7e4ca30c6e662dd66fa, type: 3}
+      propertyPath: m_TagString
+      value: pokemon
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -75,6 +79,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1cf35c6ab9e7a7e4ca30c6e662dd66fa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3479389490851914227}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1cf35c6ab9e7a7e4ca30c6e662dd66fa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 779119604815569792}
   m_SourcePrefab: {fileID: 100100000, guid: 1cf35c6ab9e7a7e4ca30c6e662dd66fa, type: 3}
 --- !u!1 &5978723245188769106 stripped
 GameObject:
@@ -102,3 +109,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 4, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &779119604815569792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5978723245188769106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 054a7570781cbf24aac9864ba6f740a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PokemonLocation
+  Latitude: 0
+  Longitude: 0

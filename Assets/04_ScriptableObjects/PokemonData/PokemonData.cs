@@ -6,6 +6,6 @@ public class PokemonData : ScriptableObject
 {
     string name;
     int maxHP;
-    Pokemon model;
+    GameObject model;
     int baseCaptureRate;
 }

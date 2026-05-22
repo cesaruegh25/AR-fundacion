@@ -71,7 +71,7 @@ public class LocationManager : MonoBehaviour
             Latitude = Input.location.lastData.latitude;
             Longitude = Input.location.lastData.longitude;
 
-            UIManagerPokemon.Instance.Log("Lat: " + Latitude + " Lon: " + Longitude, 2);
+            //UIManagerPokemon.Instance.Log("Lat: " + Latitude + " Lon: " + Longitude, 2);
 
             yield return new WaitForSeconds(updateInterval);
         }
